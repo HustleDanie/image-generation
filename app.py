@@ -23,7 +23,7 @@ if uploaded_file:
         model = AutoModelForImageClassification.from_pretrained(model_name)
 
         # Preprocess and predict
-        inputs = processor(images=image, return_tensors="pt")
+        inputs = processor(images=image, return_tensors="pt",padding=True)
         with torch.no_grad():
             outputs = model(**inputs)
             logits = outputs.logits
