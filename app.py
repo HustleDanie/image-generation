@@ -23,7 +23,7 @@ if uploaded_file:
             model = AutoModelForImageClassification.from_pretrained(model_name)
 
             # Preprocess (wrap in list for batch input)
-            inputs = extractor(images=[image], return_tensors="pt", padding=True)
+            inputs = extractor(images=[image], return_tensors="pt")
             inputs = {k: v.cpu() for k, v in inputs.items()}
             model = model.cpu()
 
