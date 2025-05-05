@@ -10,11 +10,12 @@ uploaded_file = st.file_uploader("📤 Upload an image", type=["jpg", "jpeg", "p
 
 if uploaded_file:
     try:
-        image = Image.open(uploaded_file).convert("RGB")
+        # 🛠 Force resize the image to avoid padding-related tensor errors
+        image = Image.open(uploaded_file).convert("RGB").resize((224, 224))
         st.image(image, caption="Uploaded Image", use_column_width=True)
 
         with st.spinner("🔍 Classifying..."):
-            classifier = pipeline("image-classification", model="facebook/deit-base-distilled-patch16-224")
+            classifier = pipeline("image-classification", model="google/vit-base-patch16-224")
             result = classifier(image)
 
         label = result[0]["label"]
